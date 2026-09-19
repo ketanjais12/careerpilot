@@ -34,8 +34,16 @@ const AuthPage = () => {
         await register(name, email, password);
       }
     } catch (err) {
-      setError(err.response?.data?.message || 'Authentication failed. Please try again.');
-    }
+  console.error('AUTH ERROR:', err);
+  console.error('RESPONSE:', err.response);
+  console.error('DATA:', err.response?.data);
+
+  setError(
+    err.response?.data?.message ||
+    err.message ||
+    'Authentication failed. Please try again.'
+  );
+}
   };
 
   return (
