@@ -130,10 +130,16 @@ const EditApplication = () => {
 
         {/* AI Analysis Integration */}
         <div className="mt-12 border-t border-zinc-800/80 pt-8 animate-in fade-in slide-in-from-bottom-6 duration-700 delay-300 fill-mode-backwards">
-          <AIAnalysis
-            applicationId={application._id}
-            existingAnalysis={application.analysis}
-          />
+       <AIAnalysis
+  applicationId={application._id}
+  existingAnalysis={application.analysis}
+  onAnalysisGenerated={(analysis) => {
+    setApplication((prev) => ({
+      ...prev,
+      analysis,
+    }));
+  }}
+/>
         </div>
 
         {/* Interview Practice */}

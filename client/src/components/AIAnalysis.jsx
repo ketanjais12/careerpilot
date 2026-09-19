@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { generateAIAnalysis } from '../services/aiService';
 
-const AIAnalysis = ({ applicationId, existingAnalysis }) => {
+const AIAnalysis = ({ applicationId, existingAnalysis , onAnalysisGenerated, }) => {
   const [analysis, setAnalysis] = useState(existingAnalysis || null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,8 +10,13 @@ const AIAnalysis = ({ applicationId, existingAnalysis }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await generateAIAnalysis(applicationId);
-      setAnalysis(response.data);
+     const response = await generateAIAnalysis(applicationId);
+
+setAnalysis(response.data);
+
+if (onAnalysisGenerated) {
+  onAnalysisGenerated(response.data);
+}
     } catch (err) {
       setError(
         err.response?.data?.message || 'Failed to generate AI insights. Please try again.'
